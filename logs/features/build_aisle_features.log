@@ -1,0 +1,2 @@
+2026-06-06 16:53:41,323 | INFO | features.build_aisle_features | Starting pipeline: build_aisle_features
+2026-06-06 16:54:34,012 | INFO | features.build_aisle_features | Completed in 52.69 seconds

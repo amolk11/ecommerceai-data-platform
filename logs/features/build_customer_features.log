@@ -1,0 +1,2 @@
+2026-06-06 16:47:21,500 | INFO | features.build_customer_features | Starting pipeline: build_customer_features
+2026-06-06 16:49:13,342 | INFO | features.build_customer_features | Completed in 111.83 seconds
