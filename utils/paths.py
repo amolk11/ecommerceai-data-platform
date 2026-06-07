@@ -17,6 +17,7 @@ PIPELINE_DIR = PROJECT_ROOT / "pipelines"
 STAGING_PIPELINE_DIR = PIPELINE_DIR / "staging"
 FEATURE_PIPELINE_DIR = PIPELINE_DIR / "features"
 ANALYTICS_PIPELINE_DIR = PIPELINE_DIR / "analytics"
+SERVING_PIPELINE_DIR = PIPELINE_DIR / "serving"
 
 # Documentation
 DOCS_DIR = PROJECT_ROOT / "docs"
@@ -33,6 +34,8 @@ ANALYTICS_LOG_DIR = LOG_DIR / "analytics"
 
 SERVICE_LOG_DIR = LOG_DIR / "services"
 API_LOG_DIR = LOG_DIR / "api"
+
+SERVING_SQL_DIR = SQL_DIR / "serving"
 
 # Create Log Directories Automatically
 for directory in [
