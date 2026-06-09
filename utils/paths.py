@@ -3,6 +3,8 @@ from pathlib import Path
 # Project Root
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+# Data Directory
+DATA_DIR = PROJECT_ROOT / "data"
 
 # SQL Directories
 SQL_DIR = PROJECT_ROOT / "sql"

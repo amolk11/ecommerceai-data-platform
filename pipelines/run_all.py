@@ -1,5 +1,6 @@
 from utils.logger import get_logger
 
+from pipelines.run_raw import run as run_raw
 from pipelines.run_staging import run as run_staging
 from pipelines.run_features import run as run_features
 from pipelines.run_analytics import run as run_analytics
@@ -14,6 +15,8 @@ logger = get_logger(
 def run():
 
     logger.info("Starting CommerceAI Pipeline")
+    
+    run_raw()
 
     run_staging()
 
