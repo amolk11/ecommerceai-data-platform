@@ -6,7 +6,5 @@ __pycache__/
 
 /data/
 
-
-/logs/
-
 logs/
+*.log
