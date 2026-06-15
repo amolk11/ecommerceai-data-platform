@@ -9,4 +9,5 @@ pipeline = SQLPipeline(
     sql_file=STAGING_SQL_DIR / "order_items.sql"
 )
 
-pipeline.run()
+if __name__ == "__main__": 
+    pipeline.run()

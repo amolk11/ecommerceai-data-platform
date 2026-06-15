@@ -9,4 +9,6 @@ pipeline = SQLPipeline(
     sql_file=FEATURE_SQL_DIR / "department_features.sql"
 )
 
-pipeline.run()
+if __name__ == "__main__":
+    pipeline.run()
+    

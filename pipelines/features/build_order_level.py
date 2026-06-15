@@ -9,4 +9,5 @@ pipeline = SQLPipeline(
     sql_file=FEATURE_SQL_DIR / "order_level.sql"
 )
 
-pipeline.run()
+if __name__ == "__main__":
+    pipeline.run()

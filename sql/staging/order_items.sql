@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS staging.order_items;
+
 CREATE TABLE IF NOT EXISTS staging.order_items AS
 SELECT
     o.order_id,
@@ -23,5 +25,4 @@ JOIN raw.aisles a
     ON p.aisle_id = a.aisle_id
 JOIN raw.departments d
     ON p.department_id = d.department_id
-WHERE o.eval_set = 'prior'
-LIMIT 0;
+WHERE o.eval_set = 'prior';

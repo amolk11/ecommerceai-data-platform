@@ -1,2 +1,627 @@
 2026-06-06 16:47:21,447 | INFO | staging.build_order_items | Starting pipeline: build_order_items
 2026-06-06 16:47:21,500 | INFO | staging.build_order_items | Completed in 0.04 seconds
+2026-06-15 11:14:46,433 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 11:14:46,503 | INFO | staging.build_order_items | Completed in 0.06 seconds
+2026-06-15 11:16:04,973 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 11:16:05,043 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "raw.orders" does not exist
+LINE 17: FROM raw.orders o
+              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "raw.orders" does not exist
+LINE 17: FROM raw.orders o
+              ^
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 15:19:48,050 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 15:19:48,121 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedTable: relation "raw.orders" does not exist
+LINE 17: FROM raw.orders o
+              ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "raw.orders" does not exist
+LINE 17: FROM raw.orders o
+              ^
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 16:58:35,604 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 16:58:35,757 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 17:12:55,717 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 17:12:55,816 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 17:13:08,197 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 17:13:08,247 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 17:15:50,025 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 17:15:50,132 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 17:16:09,420 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 17:16:09,509 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 17:16:54,523 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 17:16:54,653 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 18:07:34,312 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 18:07:34,318 | ERROR | staging.build_order_items | Pipeline failed: build_order_items
+Traceback (most recent call last):
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\pipelines\base_pipeline.py", line 22, in run
+    execute_sql(sql)
+  File "C:\Users\kadam\Desktop\ecommerceai-data-platform\utils\sql_runner.py", line 9, in execute_sql
+    conn.execute(text(sql_text))
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1419, in execute
+    return meth(
+           ^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\sql\elements.py", line 527, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1641, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 2363, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "C:\Users\kadam\AppData\Local\Programs\Python\Python312\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+
+[SQL: CREATE TABLE IF NOT EXISTS staging.order_items AS
+SELECT
+    o.order_id,
+    o.user_id,
+    o.order_number,
+    o.order_dow,
+    o.order_hour_of_day,
+    o.days_since_prior_order,
+
+    op.product_id,
+    op.add_to_cart_order,
+    op.reordered,
+
+    p.product_name,
+    a.aisle,
+    d.department
+FROM raw.orders o
+JOIN raw.order_products_prior op
+    ON o.order_id = op.order_id
+JOIN raw.products p
+    ON op.product_id = p.product_id
+JOIN raw.aisles a
+    ON p.aisle_id = a.aisle_id
+JOIN raw.departments d
+    ON p.department_id = d.department_id
+WHERE o.eval_set = 'prior'
+LIMIT 0;]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-06-15 18:37:17,989 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 18:37:18,042 | INFO | staging.build_order_items | Completed in 0.05 seconds
+2026-06-15 18:51:52,511 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 18:51:52,514 | INFO | staging.build_order_items | Completed in 0.00 seconds
+2026-06-15 19:02:15,564 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 19:02:15,577 | INFO | staging.build_order_items | Completed in 0.00 seconds
+2026-06-15 19:02:48,193 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 19:02:48,193 | INFO | staging.build_order_items | Completed in 0.00 seconds
+2026-06-15 19:03:00,186 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 19:03:00,188 | INFO | staging.build_order_items | Completed in 0.00 seconds
+2026-06-15 19:07:52,416 | INFO | staging.build_order_items | Starting pipeline: build_order_items
+2026-06-15 19:09:41,231 | INFO | staging.build_order_items | Completed in 108.81 seconds

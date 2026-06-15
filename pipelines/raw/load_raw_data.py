@@ -80,7 +80,7 @@ def load_table(table_name: str, config: dict) -> None:
         for chunk in pd.read_csv(
             file_path,
             dtype=config["dtypes"],
-            chunksize=100000,
+            chunksize=1000000,
         ):
             chunk.to_sql(
                 name=table_name,

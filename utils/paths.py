@@ -9,6 +9,7 @@ DATA_DIR = PROJECT_ROOT / "data"
 # SQL Directories
 SQL_DIR = PROJECT_ROOT / "sql"
 
+RAW_SQL_DIR = SQL_DIR / "raw"
 STAGING_SQL_DIR = SQL_DIR / "staging"
 FEATURE_SQL_DIR = SQL_DIR / "features"
 ANALYTICS_SQL_DIR = SQL_DIR / "analytics"
