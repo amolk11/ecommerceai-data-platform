@@ -180,64 +180,7 @@ SELECT
 
         ELSE 'Low Purchase Intent'
 
-    END AS primary_weakness,
-
-    ------------------------------------------------------------------
-    -- Recommended Action
-    ------------------------------------------------------------------
-
-    CASE
-
-        ------------------------------------------------------------------
-        -- Elite Products
-        ------------------------------------------------------------------
-
-        WHEN global_health_score >= 90
-
-            THEN 'Maintain performance and protect market position'
-
-        ------------------------------------------------------------------
-        -- Loyalty Opportunity
-        ------------------------------------------------------------------
-
-        WHEN global_loyalty_score >= 80
-         AND global_reach_score < 50
-
-            THEN 'Promote to a broader customer audience'
-
-        ------------------------------------------------------------------
-        -- Cross-Sell Opportunity
-        ------------------------------------------------------------------
-
-        WHEN global_popularity_score >= 80
-         AND global_basket_influence_score < 50
-
-            THEN 'Improve cross-sell opportunities'
-
-        ------------------------------------------------------------------
-        -- Retention Opportunity
-        ------------------------------------------------------------------
-
-        WHEN global_reach_score >= 80
-         AND global_loyalty_score < 50
-
-            THEN 'Focus on customer retention'
-
-        ------------------------------------------------------------------
-        -- Weak Products
-        ------------------------------------------------------------------
-
-        WHEN global_health_score < 50
-
-            THEN 'Investigate product performance and positioning'
-
-        ------------------------------------------------------------------
-        -- Default
-        ------------------------------------------------------------------
-
-        ELSE 'Monitor performance and optimize growth opportunities'
-
-    END AS recommended_action
+    END AS primary_weakness
 
 FROM analytics.product_intelligence_base;
 
